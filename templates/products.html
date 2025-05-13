@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %} PRODUCTS {% endblock %}
+{% block content %}
+
+<div class="container">
+
+  <h3>Explore our collection</h3>
+  <P>Quality you can trust</P>
+
+<!-- product 1 -->
+  <div class="card" style="width: 18rem;">
+    <img src="/static/fruits.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">super fresh fruits</h5>
+      <p class="card-text"></p>
+      <a href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+  </div>
+  <!-- product 2 -->
+  <div class="card" style="width: 18rem;">
+    <img src="/static/clothes-bags.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">classic  bags and outfits</h5>
+      <p class="card-text">Durable and stylish.perfect for any season</p>
+      <a href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+  </div>
+  <div class="card" style="width: 18rem;">
+    <img src="/static/electronics.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+      <a href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+  </div>
+
+
+
+
+  <div>
+    <!-- <form action="/add_products" method="post"> -->
+      <!-- <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">product name</label>
+        <input type="text" class="form-control" name="p_name" id="exampleInputEmail1" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">buying price</label>
+        <input type="number" class="form-control" name="by_price" id="exampleInputPassword1">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">selling price</label>
+        <input type="number" class="form-control" name="s_price" id="exampleInputPassword1">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">stock quantity</label>
+        <input type="number" class="form-control" name="quantity" id="exampleInputPassword1">
+      </div> -->
+
+      <button type="submit" class="btn btn-primary">View more products</button>
+    </form>
+
+  </div>
+
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">product id</th>
+          <th scope="col">product name</th>
+          <th scope="col">buying price</th>
+          <th scope="col">selling price</th>
+          <th scope="col">stock quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td>{{product[0]}}</td>
+          <td>{{product[1]}}</td>
+          <td>{{product[2]}}</td>
+          <td>{{product[3]}}</td>
+          <td>{{product[4]}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+  {% endblock %}
