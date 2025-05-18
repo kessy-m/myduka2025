@@ -12,15 +12,19 @@
     <form action="/register" method="post">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Full name</label>
-        <input type="text" class="form-control" name="full_name" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="text" class="form-control" name="full_name">
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">email</label>
-        <input type="email" class="form-control" name="email" id="exampleInputPassword1">
+        <label>email</label>
+        <input type="email" name="email">
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">password</label>
-        <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+       <label>phone number</label>
+       <input type="tel" name="phone">
+      </div>
+      <div class="mb-3">
+        <label>password</label>
+        <input type="password" name="password">
       </div>
       <button type="submit" class="btn btn-primary">Register</button>
     </form>

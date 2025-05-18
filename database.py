@@ -4,7 +4,7 @@ from datetime import datetime
 now = datetime.now()
 
 #create connection to db
-conn = psycopg2.connect(user="postgres",password="12345",host="localhost",port="5432",database="myduka")
+conn = psycopg2.connect(user="postgres",password="12345",host="localhost",port="5432",database="myduka25")
 
 
 #executes database operations
@@ -42,11 +42,6 @@ def fetch_users():
 
 
 
-# #inserting into
-def insert_products():
-   cur.execute("insert into products(name,buying_price,selling_price,stock_quantity)values('mangoes',200,500,20)")
-conn.commit()
-fetch_products()
 
 # insert into sales
 def insert_sales():
@@ -65,7 +60,7 @@ def insert_sales(values):
 
 # insert into users
 def insert_users(user_info):
-    query = "insert into users(full_name, email, password)values(%s,%s,%s)"
+    query = "insert into users(full_name, email,phone_number, password)values(%s,%s,%s,%s)"
     cur.execute(query,user_info)
     conn.commit()
 
@@ -134,14 +129,10 @@ print("sales from fetch data func:\n",sales)
 # use parameters---the no of parameters has to be equal the no of columns
 
 def insert_products(values):
-    insert = "insert into products(name,buying_price,selling_price,stock_quantity)values(%s,%s,%s,%s)"
+    insert = "insert into products(name,buying_price,selling_price)values(%s,%s,%s)"
     cur.execute(insert,values)
     conn.commit()
 
-product1=("grapes",200,500,20)
-product2=("laptop",40000,80000,10)
-insert_products(product1)
-insert_products(product2)
 
 products = fetch_data("products")
 # print("fetching products from fetch data func:\n",products)
@@ -168,14 +159,44 @@ print("fetching products from fetch products method two func:\n",products)
 # method 2-- insert products function tht takes values as a parameter and uses formatted string
 
 def insert_products_method_2(values):
-    insert = f"insert into products(name,buying_price,selling_price,stock_quantity)values{values}"
+    insert = f"insert into products(name,buying_price,selling_price)values{values}"
     cur.execute(insert)
     conn.commit()
 
 
 
-products2 = ("Tomatoes",100,300,20)
-insert_products_method_2(products2)
-products = fetch_data('products')
-print("fetch products from fetch data method 2 func:\n",products)
+def insert_stock(values):
+    insert = "insert into stock(pid,stock_quantity,created_at)values(%s,%s,now())"
+    cur.execute(insert,values) 
+    conn.commit
 
+
+def fetch_stock():
+    cur.execute("select * from stock;")
+    stock = cur.fetchall()
+    return stock
+
+
+# task...implement a functionality where if you dont have stock at all
+# display that stock is 0
+# -coalesce
+
+
+def available_stock(pid):
+    cur.execute("select coalesce(sum(stock_quantity), 0) from stock where pid=%s", (pid,))
+    total_stock = cur.fetch()[0]
+    cur.execute("select coalesce(sum(sales.quantity) from sales where pid =%s", (pid,))
+    total_sold = cur.fetchone()[0] or 0
+    return total_stock - total_sold
+
+# update products
+def product_name(pid):
+    cur.execute('select name from products where id =%s', (pid,)) 
+    product = cur.fetchone()[0] or 'unknown prod'
+    return product
+
+
+
+def edit_product(values):
+    cur.execute("update products set name = %s,buying_price =%s, selling_price = %s where id = %s",values)
+    conn.commit()
